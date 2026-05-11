@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Compteur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #1a1a2e;
+            color: white;
+        }
+        .container {
+            text-align: center;
+        }
+        #count {
+            font-size: 100px;
+            font-weight: bold;
+            color: #e94560;
+        }
+        button {
+            font-size: 20px;
+            padding: 15px 40px;
+            background: #e94560;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #c73652;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Compteur Global</h1>
+        <div id="count">0</div>
+        <button onclick="increment()">+1</button>
+    </div>
+    <script>
+        async function loadCount() {
+            const res = await fetch('/count');
+            const data = await res.json();
+            document.getElementById('count').textContent = data.count;
+        }
+
+        async function increment() {
+            const res = await fetch('/increment', {method: 'POST'});
+            const data = await res.json();
+            document.getElementById('count').textContent = data.count;
+        }
+
+        loadCount();
+    </script>
+</body>
+</html>
