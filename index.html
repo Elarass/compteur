@@ -2,46 +2,53 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Compteur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compteur 2025</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
+            background: #0a0a0a;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: #1a1a2e;
+            font-family: 'Courier New', monospace;
             color: white;
         }
         .container {
             text-align: center;
         }
+        h1 {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
         #count {
-            font-size: 100px;
+            font-size: 8rem;
             font-weight: bold;
-            color: #e94560;
+            color: #00ff88;
+            text-shadow: 0 0 30px #00ff8855;
         }
-        button {
-            font-size: 20px;
-            padding: 15px 40px;
-            background: #e94560;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
+        p {
             margin-top: 20px;
+            color: #555;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
         }
-        button:hover {
-            background: #c73652;
+        #next {
+            color: #00ff88;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Compteur Global</h1>
+        <h1>Minutes depuis le 1er Janvier 2025</h1>
         <div id="count">0</div>
-        <button onclick="increment()">+1</button>
+        <p>Prochaine minute dans <span id="next">--</span> secondes</p>
     </div>
+
     <script>
         async function loadCount() {
             const res = await fetch('/count');
@@ -49,13 +56,17 @@
             document.getElementById('count').textContent = data.count;
         }
 
-        async function increment() {
-            const res = await fetch('/increment', {method: 'POST'});
-            const data = await res.json();
-            document.getElementById('count').textContent = data.count;
+        function updateCountdown() {
+            const now = new Date();
+            const seconds = 59 - now.getSeconds();
+            document.getElementById('next').textContent = seconds;
         }
 
         loadCount();
+        updateCountdown();
+
+        setInterval(loadCount, 1000);
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>

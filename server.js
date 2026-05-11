@@ -1,38 +1,24 @@
-const http = require('http');
-const fs = require('fs');
+const express = require('express');
 const path = require('path');
-
+const app = express();
 const PORT = process.env.PORT || 3000;
-const COUNTER_FILE = 'counter.json';
 
-function readCounter() {
-    const data = fs.readFileSync(COUNTER_FILE, 'utf8');
-    return JSON.parse(data);
+function getMinutesSinceNewYear() {
+    const start = new Date('2025-01-01T00:00:00Z');
+    const now = new Date();
+    const diff = now - start;
+    return Math.floor(diff / 60000);
 }
 
-function saveCounter(data) {
-    fs.writeFileSync(COUNTER_FILE, JSON.stringify(data, null, 2));
-}
-
-const server = http.createServer((req, res) => {
-    if (req.method === 'GET' && req.url === '/') {
-        const html = fs.readFileSync('index.html', 'utf8');
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end(html);
-    } else if (req.method === 'GET' && req.url === '/count') {
-        const data = readCounter();
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        res.end(JSON.stringify(data));
-    } else if (req.method === 'POST' && req.url === '/increment') {
-        const data = readCounter();
-        data.count++;
-        data.lastUpdated = new Date().toISOString();
-        saveCounter(data);
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        res.end(JSON.stringify(data));
-    }
+app.get('/count', (req, res) => {
+    const count = getMinutesSinceNewYear();
+    res.json({ count });
 });
 
-server.listen(PORT, () => {
-    console.log(`Serveur démarré sur le port ${PORT}`);
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.listen(PORT, () => {
+    console.log('Serveur démarré sur le port ' + PORT);
 });
