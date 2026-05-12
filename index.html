@@ -11,12 +11,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             font-family: 'Courier New', monospace;
             color: white;
+            padding: 20px;
         }
         .container {
             text-align: center;
+            width: 100%;
+            max-width: 900px;
         }
         h1 {
             font-size: 1.2rem;
@@ -39,6 +42,21 @@
         }
         #next {
             color: #00ff88;
+        }
+
+        /* RESPONSIVE MOBILE */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 0.75rem;
+                letter-spacing: 2px;
+            }
+            #count {
+                font-size: 20vw;
+            }
+            p {
+                font-size: 0.75rem;
+                letter-spacing: 1px;
+            }
         }
     </style>
 </head>
