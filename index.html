@@ -43,6 +43,29 @@
         #next {
             color: #00ff88;
         }
+        .liens {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 90%;
+        }
+        .liens a {
+            color: #00ff88;
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .liens a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
 
         /* RESPONSIVE MOBILE */
         @media (max-width: 768px) {
@@ -57,6 +80,12 @@
                 font-size: 0.75rem;
                 letter-spacing: 1px;
             }
+            .liens {
+                gap: 10px;
+            }
+            .liens a {
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
@@ -65,6 +94,13 @@
         <h1>NOMBRES estimé DE SUICIDES MASCULINS DEPUIS LE 1ER JANVIER DERNIER</h1>
         <div id="count">0</div>
         <p>prochain suicide de votre père, de votre ami, de votre frère, de votre cousin, voisin, collegue, patron dans <span id="next">--</span> secondes</p>
+    </div>
+
+    <div class="liens">
+        <a href="https://www.who.int/fr/news-room/fact-sheets/detail/suicide" target="_blank">OMS - Suicide</a>
+        <a href="https://news.un.org/fr/story/2023/09/1138447" target="_blank">ONU News</a>
+        <a href="https://www.infosuicide.org/guide/suicide-et-sa-prevention/le-phenomene-suicidaire/quelques-chiffres/" target="_blank">Infosuicide - Chiffres</a>
+        <a href="https://www.infosuicide.org/reperes/epidemiologie/epidemiologie-dans-le-monde/" target="_blank">Infosuicide - Épidémiologie</a>
     </div>
 
     <script>
